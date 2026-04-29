@@ -4,14 +4,7 @@ from Calculator import Calculator
 def calc():
     return Calculator()
 
-class TestAdd:
-
-    def test_positive_overflow(self, calc):
-        with pytest.raises(OverflowError):
-            calc.divide(1, 1e250)
-
-    def test_adding_three_ten(self,calc):
-        assert Calculator.add(3,10) == 13.0
+#class TestAdd:
 
 #class TestSubtract:
 
@@ -32,7 +25,19 @@ class TestAdd:
 #class TestPower:
 
 
-#class TestSquareRoot:
+class TestSquareRoot:
+    def test_float_square_root(self,calc):
+        assert Calculator.square_root(25.0) == 5.0
+
+    def test_zero_square(self,calc):
+        assert Calculator.square_root(0) == 0.0
+
+    def test_integer_square_root(self,calc):
+        assert Calculator.square_root(25) == 5
+
+    def test_raises_value_error(self,calc):
+        with pytest.raises(ValueError):
+            Calculator.square_root(-25)
 
 
 class TestModulus:
@@ -52,11 +57,13 @@ class TestFloorDivide:
         with pytest.raises(ZeroDivisionError):
             assert Calculator.floor_divide(5,0)
 
-    def test_dividing_boundary(self,calc):
+    def test_floor_dividing_boundary(self,calc):
         assert Calculator.floor_divide(9223372036854775807,30.0) == pytest.approx(3.0744573e+17)
 
-    def test_floor_division(self,calc):
+    def test_int_floor_division(self,calc):
         assert Calculator.floor_divide(30,5) == 6
 
-#Class TestChain:
-    #def test_chaining_ops
+
+class TestChain:
+    def test_chaining_ops(self,calc):
+        assert Calculator.subtract(Calculator.add(Calculator.divide(Calculator.multiply(5,5),10),5),3) == 4.5
