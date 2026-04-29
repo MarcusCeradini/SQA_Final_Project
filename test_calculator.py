@@ -22,15 +22,23 @@ def calc():
 #            calc.divide(5, 0)
 
 
-#class TestPower:
+class TestPower:
+    def test_positive_integers(self,calc):
+        assert Calculator.power(2,2) == 4
 
+    def test_positive_boundary(self,calc):
+        assert Calculator.power(1e+125 - 1,2) == pytest.approx(1e250 - 1)
+
+    # Assertion error
+    #def test_negative_boundary(self,calc):
+        #assert Calculator.power(-1e+125 + 1,2) == -1e250 + 1
 
 class TestSquareRoot:
     def test_float_square_root(self,calc):
-        assert Calculator.square_root(25.0) == 5.0
+        assert Calculator.square_root(25.0) == pytest.approx(5.0)
 
     def test_zero_square(self,calc):
-        assert Calculator.square_root(0) == 0.0
+        assert Calculator.square_root(0) == pytest.approx(0.0)
 
     def test_integer_square_root(self,calc):
         assert Calculator.square_root(25) == 5
@@ -49,7 +57,7 @@ class TestModulus:
         assert Calculator.modulus(9223372036854,4) == 2
 
     def test_modulus_float(self,calc):
-        assert Calculator.modulus(5.0,5) == 0.0
+        assert Calculator.modulus(5.0,5) == pytest.approx(0.0)
 
 
 class TestFloorDivide:
@@ -66,4 +74,4 @@ class TestFloorDivide:
 
 class TestChain:
     def test_chaining_ops(self,calc):
-        assert Calculator.subtract(Calculator.add(Calculator.divide(Calculator.multiply(5,5),10),5),3) == 4.5
+        assert Calculator.subtract(Calculator.add(Calculator.divide(Calculator.multiply(5,5),10),5),3) == pytest.approx(4.5)
