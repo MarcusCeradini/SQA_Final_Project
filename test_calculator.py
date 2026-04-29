@@ -30,10 +30,10 @@ class TestAdd:
         Calculator.add(-1e250, 1) == -1e250 + 1
 
     def test_adding_decimals(self, calc):
-        Calculator.add(0.5,0.5) == 1.0
+        Calculator.add(0.5,0.5) == pytest.approx(1.0)
 
     def test_adding_negative_and_positive_decimals(self, calc):
-        Calculator.add(-0.5, 0.5) == 0
+        Calculator.add(-0.5, 0.5) == pytest.approx(0.0)
     
 
 #class TestSubtract:
