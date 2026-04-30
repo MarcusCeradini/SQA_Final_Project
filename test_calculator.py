@@ -23,10 +23,10 @@ class TestAdd:
         with pytest.raises(OverflowError):
             calculator.add(-1e250, -1e250)
     
-    def test_positive_boundary(self, calc):
+    def test_adding_positive_boundary(self, calc):
         assert calculator.add(1e250, -1) == 1e250 - 1
 
-    def test_negative_bounday(self, calc):
+    def test_adding_negative_boundary(self, calc):
         assert calculator.add(-1e250, 1) == -1e250 + 1
 
     def test_adding_decimals(self, calc):
@@ -46,7 +46,7 @@ class TestSubtract:
         with pytest.raises(OverflowError):
             calculator.subtract(-1e250, 1e500)
 
-    def test_positive_boundary(self, calc):
+    def test_subtracting_positive_boundary(self, calc):
         assert calculator.subtract(1e250, 10000.0) == 1e250 - 10000.0
 
     def test_subtracting_to_above_negative_boundary(self, calc):
