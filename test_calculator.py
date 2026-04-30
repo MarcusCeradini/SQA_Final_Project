@@ -1,5 +1,6 @@
 import pytest
 from calculator import calculator
+
 @pytest.fixture
 def calc():
     return calculator()
@@ -19,14 +20,14 @@ class TestAdd:
     def test_adding_negative_and_positive(self, calc):
         assert calculator.add(-5.0, 8.0) == 3.0
 
-    def test_negative_overflow(self, calc):
+    def test_adding_negative_overflow(self, calc):
         with pytest.raises(OverflowError):
             calculator.add(-1e250, -1e250)
     
-    def test_positive_boundary(self, calc):
+    def test_adding_positive_boundary(self, calc):
         assert calculator.add(1e250, -1) == 1e250 - 1
 
-    def test_negative_bounday(self, calc):
+    def test_adding_negative_boundary(self, calc):
         assert calculator.add(-1e250, 1) == -1e250 + 1
 
     def test_adding_decimals(self, calc):
@@ -46,7 +47,7 @@ class TestSubtract:
         with pytest.raises(OverflowError):
             calculator.subtract(-1e250, 1e500)
 
-    def test_positive_boundary(self, calc):
+    def test_subtraction_positive_boundary(self, calc):
         assert calculator.subtract(1e250, 10000.0) == 1e250 - 10000.0
 
     def test_subtracting_to_above_negative_boundary(self, calc):
@@ -149,7 +150,7 @@ class TestSquareRoot:
 
 
 class TestModulus:
-    def test_raises_zero_divisoon(self,calc):
+    def test_raises_zero_divison(self,calc):
         with pytest.raises(ZeroDivisionError):
             assert calculator.modulus(5,0)
 
