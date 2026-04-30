@@ -8,41 +8,80 @@ class TestAdd:
 
     def test_positive_overflow(self, calc):
         with pytest.raises(OverflowError):
-            Calculator.add(1.0, 1e250**2)
+            calculator.add(1e250, 1e250)
 
     def test_adding_positives_wholes(self, calc):
-        assert Calculator.add(3, 10) == 13
+        assert calculator.add(3, 10) == 13
 
     def test_adding_two_negatives(self, calc):
-        assert Calculator.add(-5, -8) == -13
+        assert calculator.add(-5, -8) == -13
 
     def test_adding_negative_and_positive(self, calc):
-        assert Calculator.add(-5.0, 8.0) == 3.0
+        assert calculator.add(-5.0, 8.0) == 3.0
 
     def test_negative_overflow(self, calc):
         with pytest.raises(OverflowError):
-            Calculator.add(-1.0, -1e250**2)
+            calculator.add(-1e250, -1e250)
     
     def test_positive_boundary(self, calc):
-        Calculator.add(1e250, -1) == 1e250 - 1
+        assert calculator.add(1e250, -1) == 1e250 - 1
 
     def test_negative_bounday(self, calc):
-        Calculator.add(-1e250, 1) == -1e250 + 1
+        assert calculator.add(-1e250, 1) == -1e250 + 1
 
     def test_adding_decimals(self, calc):
-        Calculator.add(0.5,0.5) == pytest.approx(1.0)
+        assert calculator.add(0.5,0.5) == pytest.approx(1.0)
 
     def test_adding_negative_and_positive_decimals(self, calc):
-        Calculator.add(-0.5, 0.5) == pytest.approx(0.0)
+        assert calculator.add(-0.5, 0.5) == pytest.approx(0.0)
     
 
-#class TestSubtract:
+class TestSubtract:
 
+    def test_subtracting_over_positive_boundary(self, calc):
+        with pytest.raises(OverflowError):
+            calculator.subtract(-1e250, -1e500)
 
-#class TestMultiply:
+    def test_subtracting_below_negative_boundary(self, calc):
+        with pytest.raises(OverflowError):
+            calculator.subtract(-1e250, 1e500)
+
+    def test_positive_boundary(self, calc):
+        assert calculator.subtract(1e250, 10000.0) == 1e250 - 10000.0
+
+    def test_subtracting_to_above_negative_boundary(self, calc):
+        assert calculator.subtract(-1e250, -10000.0) == -1e250 + 10000.0
+
+    def test_subtracting_two_positives(self, calc):
+        assert calculator.subtract(9.5, 8) == pytest.approx(1.5)
+
+    def test_subtracting_two_negatives(self, calc):
+        assert calculator.subtract(-9, -8) == -1
+
+    def test_subtracting_positive_and_negatives(self, calc):
+        assert calculator.subtract(-9, 8) == -17
+
+class TestMultiply:
 
     def test_multiplying_positive_by_negative(self, calc):
-        assert Calculator.multiply(10, -90) == -900
+        assert calculator.multiply(10, -90) == -900
+
+    def test_multiplying_two_negatives(self, calc):
+        assert calculator.multiply(-10, -90) == 900
+
+    def test_multiplying_number_by_zero(self, calc):
+        assert calculator.multiply(90, 0) == 0
+
+    def test_multiplying_two_positives(self, calc):
+        assert calculator.multiply(8, 7) == 56
+
+    def test_multplying_over_positive_boundary(self, calc):
+        with pytest.raises(OverflowError):
+            calculator.multiply(1e250, 1e250)
+
+    def test_multplying_below_negative_boundary(self, calc):
+        with pytest.raises(OverflowError):
+            calculator.multiply(2.0, -1e250)
 
 class TestDivide:
 
