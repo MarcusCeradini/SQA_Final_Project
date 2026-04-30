@@ -12,26 +12,53 @@ def calc():
 #class TestMultiply:
 
 
-#class TestDivide:
+class TestDivide:
 
-#    def test_even_division(self, calc):
-#        assert calc.divide(10, 2) == pytest.approx(5.0)
+    def test_even_division(self, calc):
+        assert Calculator.divide(10, 2) == pytest.approx(5.0)
 
-#    def test_zero_divisor_raises(self, calc):
-#        with pytest.raises(ZeroDivisionError):
-#            calc.divide(5, 0)
+    def test_zero_division_error(self, calc):
+        with pytest.raises(ZeroDivisionError):
+            Calculator.divide(0, 0)
+
+    def test_max_boundary(self,calc):
+        with pytest.raises(OverflowError):
+            Calculator.divide(1e250, 0.2)
+
+    def test_min_boundary(self,calc):
+        with pytest.raises(OverflowError):
+            Calculator.divide(-1e250, 0.2)
+    
+    def test_negative_division(self,calc):
+        assert Calculator.divide(-5.5, -10) == pytest.approx(0.55)
+
+    def test_negative_numerator(self,calc):
+        assert Calculator.divide(-5,10) == pytest.approx(-0.5)
 
 
 class TestPower:
     def test_positive_integers(self,calc):
         assert Calculator.power(2,2) == 4
 
-    def test_positive_boundary(self,calc):
+    def test_under_positive_boundary(self,calc):
         assert Calculator.power(1e+125 - 1,2) == pytest.approx(1e250 - 1)
 
-    # Assertion error
-    #def test_negative_boundary(self,calc):
-        #assert Calculator.power(-1e+125 + 1,2) == -1e250 + 1
+    def test_under_negative_boundary(self,calc):
+        assert Calculator.power(-1e+125 + 1,2) == pytest.approx(1e250 - 1)
+
+    def test_max_boundary(self,calc):
+        with pytest.raises(OverflowError):
+            Calculator.power(1e250, 2)
+
+    def test_min_boundary(self,calc):
+        with pytest.raises(OverflowError):
+            Calculator.power(-1e250, 2)
+
+    def test_value_error(self,calc):
+        with pytest.raises(ValueError):
+            Calculator.power(0, -9)
+
+    
 
 class TestSquareRoot:
     def test_float_square_root(self,calc):
