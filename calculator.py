@@ -1,6 +1,6 @@
 import math as math
 
-class Calculator:
+class calculator:
     #max_value = 9223372036854775807.0
     #min_value = -9223372036854775808.0
     
@@ -42,19 +42,23 @@ class Calculator:
         max_value = 1e250
         min_value = -1e250
 
+        if b == 0:
+            raise ZeroDivisionError
+
         if (a / b) > max_value:
             raise OverflowError
         
         if (a / b) < min_value:
-            raise OverflowError
+            raise OverflowError        
 
-        if b == 0:
-            raise ZeroDivisionError
         return float(a / b)
     
     def power(base, exp):
         max_value = 1e250
         min_value = -1e250
+
+        if exp < 0:
+            raise ValueError
 
         if math.pow(base, exp) > max_value:
             raise OverflowError
@@ -62,8 +66,6 @@ class Calculator:
         if math.pow(base, exp) < min_value:
             raise OverflowError
 
-        if base and exp == 0:
-            raise ValueError
         return float(math.pow(base, exp))
     
     def square_root(a):
